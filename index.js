@@ -6,7 +6,6 @@ const searching = document.querySelector(".searching")
 const p1_2 = document.querySelector(".p1-2")
 const result = document.querySelector(".result")
 const x = document.querySelector(".x")
-const pattern = new RegExp(/^[A-Za-z0-9\.,\s]+$/g)
 x.style.display = "none"
 
 solution.style.display = "none"
@@ -18,13 +17,13 @@ function encriptar(event) {
     alert("¡Escribe un texto!")
   }
   else{
+    const pattern = new RegExp(/^[A-Za-z0-9/.,\s]+$/g)
     let isValid = false
     if(!pattern.test(input.value)){
       isValid = false
     }else{
       isValid = true
     }
-    console.log("esto funciona")
     if (isValid==true){
       let text = input.value.split("");
       for(let i=0; i<text.length; i++){
@@ -70,28 +69,40 @@ function desencriptar (event){
     alert("¡Escribe un texto!")
   }
   else{
-    let text = input.value
-    text = text.replaceAll("ai", "a")
-    text = text.replaceAll("enter", "e")
-    text = text.replaceAll("imes", "i")
-    text = text.replaceAll("ober", "o")
-    text = text.replaceAll("ufat", "u")
-    solution.textContent = text
-    searching.style.display = "none"
-    p1_2.style.display = "none"
-    solution.style.display = "block"
-    if (aux){
-      crearCopy()
+    const pattern = new RegExp(/^[A-Za-z0-9/.,\s]+$/g)
+    let isValid = false
+    if(!pattern.test(input.value)){
+      isValid = false
+    }else{
+      isValid = true
     }
-    aux = false
-    copy.textContent = "Copia tu texto"
-    copy.addEventListener("click", function(event){
-      event.preventDefault()
-      navigator.clipboard.writeText(text)
-      copy.textContent = "¡Texto copiado!"
-    })
-    copy.textContent = "Copia tu texto"
-  }
+    if (isValid==true){
+      let text = input.value
+      text = text.replaceAll("ai", "a")
+      text = text.replaceAll("enter", "e")
+      text = text.replaceAll("imes", "i")
+      text = text.replaceAll("ober", "o")
+      text = text.replaceAll("ufat", "u")
+      solution.textContent = text
+      searching.style.display = "none"
+      p1_2.style.display = "none"
+      solution.style.display = "block"
+      if (aux){
+        crearCopy()
+      }
+      aux = false
+      copy.textContent = "Copia tu texto"
+      copy.addEventListener("click", function(event){
+        event.preventDefault()
+        navigator.clipboard.writeText(text)
+        copy.textContent = "¡Texto copiado!"
+      })
+      copy.textContent = "Copia tu texto"
+    }
+    else{
+      alert("El texto ingresado no es válido")
+    }
+  } 
 }
 
 function crearCopy(){
